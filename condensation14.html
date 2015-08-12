@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accessbile CBAL Science Task Screen 14</title>
+    <link rel="stylesheet" type="text/css" href="css/cbal.css" />
+    
+	<script src="scripts/jquery.js" type="text/javascript"></script>
+    <script src="scripts/cbal.js" type="text/javascript"></script>
+	
+	
+</head>
+<body class="pageBody">
+
+	<div id="nav" role="navigation">
+        <table class="navmenu" role="presentation">
+            <tbody role="presentation">
+                <tr role="presentation">
+                    <td class="navlogo" role="presentation">
+                        <img id="ets_logo" aria-hidden="true" src="images/cbalLogoWhite.png" height="30" width="142" alt="" onclick="showATMode()" />
+                        <input type="checkbox" onclick="setATUser(this)" id="chk_atmode" class="none" value="atmode" /><label id="atmode_lbl" class="none" for="chk_atmode">AT Mode</label>
+                    </td>
+                    <td class="navactivity" role="presentation">
+                        <div class="purplebox_2" aria-live="assertive" aria-relevant="text" aria-atomic="false">ENGAGE</div>
+                    </td>
+                    <td class="navbuttons" role="presentation">
+                        <ul class="buttonarea_2">
+                            <li class="nolist menuitem navbutton hidden" aria-hidden="true">
+					            <input aria-hidden="true" type="image" src="./images/dataButtonDisabled.jpg" tabindex="-1" id="dataButton" disabled="disabled" alt="show student data" />
+				            </li>
+				            <li class="nolist menuitem navbutton">
+					            <input type="image" src="./images/stopButtonEnabled.jpg" id="stopButton" alt="stop test" />
+				            </li>
+				            <li class="nolist menuitem navbutton">
+					            <input type="image" src="./images/saveButtonDisabled.jpg" id="saveButton" disabled="disabled" alt="save test" />
+				            </li>
+ 				            <li class="nolist menuitem navbutton">
+					            <input type="image" src="./images/backButtonEnabled.jpg" id="backButton" alt="previous question" />
+				            </li>
+				            <li class="nolist menuitem navbutton">
+					            <input type="image" src="./images/nextButtonEnabled.jpg" id="nextButton" alt="next question" />
+				            </li>
+			            </ul>
+                    </td>
+                </tr>
+            </tbody>            
+        </table>
+    </div>
+    
+    <div role="main">    
+
+        <div id="q14_EVALUATE" class="question">               
+			<table class="split" role="presentation">
+				<tbody role="presentation">
+					<tr role="presentation">
+						<td class="leftside" role="presentation">
+							<p>Let's see if you can use the condensation concept to explain other phenomena in your everyday life.</p>                
+							<p>In the winter when the weather is cold outside, you turn on the heat in your house. After some time, you find water on the inside of the window. Where does that water come from?</p>
+							<ol id="q14_rg1" type="a" class="radiogroup">
+								<li role="checkbox" id="q14_a" tabindex="0" aria-checked="false">
+									<img src="images/rb_unselected.jpg" alt="" role="presentation" />
+									Water inside the house
+								</li> 
+								<li role="checkbox" id="q14_b" tabindex="0" aria-checked="false">
+									<img src="images/rb_unselected.jpg" alt="" role="presentation" />
+									Rain or snow outside of the house
+								</li> 
+							</ol>
+							<p aria-hidden="true" id="q14_lbl">Please explain your answer.</p>
+							<textarea id="q14_ta" aria-labelledby="q14_lbl" aria-required="true" required="required"></textarea>
+                            <p class="alertbox_rg"></p>
+                            <p class="alertbox_ta"></p>          
+						</td>
+						<td class="rightside" role="presentation">							
+							<div class="whitegreenbox_2">
+								
+                               <figure id="q14_figure">
+                                    <img src="images/wateronwindow_2.jpg" height="487" width="680" alt="" />
+                                    <figcaption class="offscreen">
+                                        The photograph shows a closed window of a building. A snow covered forest can be seen through the window. To the left of the window is a zoomed in image showing that the inside of the window is covered with small droplets of water.
+                                        <br />&copy; EyeEmCLOSED/iStock#56590984 (image of water droplets).
+                                        <br />&copy; Phillustrations/iStock#495933 (image of window).
+                                    </figcaption>
+                                </figure>
+								<div class="photocredit" aria-hidden="true">&copy; EyeEmCLOSED/iStock#56590984</div>
+                                <div class="photocredit" aria-hidden="true">&copy; Phillustrations/iStock#495933</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+        </div>
+		
+    </div>
+</body>
+</html>

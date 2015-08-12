@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accessbile CBAL Science Task Animation 2</title>
+    <link rel="stylesheet" type="text/css" href="css/cbal.css" />
+    
+	<script src="scripts/jquery.js" type="text/javascript"></script>
+    <script src="scripts/easeljs-0.6.1.min.js" type="text/javascript"></script>
+ 	<script src="scripts/Box2dWeb-2.1.a.3.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	    var cjs = createjs;
+	</script>
+	
+	<script src="scripts/ParticleAccelerator.js" type="text/javascript"></script>
+    <script src="scripts/tweenjs-0.4.0.min.js" type="text/javascript"></script>
+	<!--<script src="scripts/condensation.js" type="text/javascript"></script>-->
+    <script src="scripts/condensation2.js" type="text/javascript"></script>
+	<!--<script src="scripts/cbal.js" type="text/javascript"></script>-->
+    <script src="scripts/animation.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            animation2 = new Condensation2();
+        });
+	</script>
+	
+	<!--<link rel="stylesheet" type="text/css" href="css/condensation.css" />-->
+    <link rel="stylesheet" type="text/css" href="css/condensation2.css" />
+	
+</head>
+<body class="animationBody">
+	<div id="condContainer2">
+		<canvas id="condensationCanvas2" width="550" height="651" aria-hidden="true"></canvas>	
+        <img id="img_q10" src="./images/bottle_wall2.png" alt="" aria-hidden="true" height="647" width="145" />						
+	</div>
+</body>
+</html>

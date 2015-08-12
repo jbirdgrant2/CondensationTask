@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+  <script type="text/javascript"> var createjs = window; </script>
+  <script type="text/javascript" src="easeljs-0.6.1.min.js"></script>
+  <script type="text/javascript" src="Box2dWeb-2.1.a.3.min.js"></script>
+
+  <script type="text/javascript">
+
+window.requestAnimFrame = (function(){
+    return  window.requestAnimationFrame   || 
+        window.webkitRequestAnimationFrame || 
+        window.mozRequestAnimationFrame    || 
+        window.oRequestAnimationFrame      || 
+        window.msRequestAnimationFrame     || 
+        function(/* function */ callback, /* DOMElement */ element){
+            window.setTimeout(callback, 1000 / 60);
+        };  })();
+
+// shorten namespaces
+var b2Vec2 = Box2D.Common.Math.b2Vec2,
+b2BodyDef = Box2D.Dynamics.b2BodyDef,
+b2Body = Box2D.Dynamics.b2Body,
+b2FixtureDef = Box2D.Dynamics.b2FixtureDef,
+b2Fixture = Box2D.Dynamics.b2Fixture,
+b2World = Box2D.Dynamics.b2World,
+b2MassData = Box2D.Collision.Shapes.b2MassData,
+b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape,
+b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
+b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
+
+
+var SCALE = 30;
+var CANVAS_WIDTH = 500;
+var CANVAS_HEIGHT = 400;
+var PARTICLE_SIZE = 44;
+var PARTICLE_SPEED = 5;
+
+
+window.onload = init;
+
+// ------------------------------------------------------------------------------------ init
+function init(){
+
+    var canvas = $('#canvas1');
+    initEasel();
+    initBOX2D();
+};
+
+
+
+// ------------------------------------------------------------------------------------ initBOX2D
+function initBOX2D() {
+
+    window.world = new b2World(new b2Vec2(0, 0), true);  //gravity, allow sleep
+
+    addWall(0, 0, 500, 10, world);  // addWall(x, y, w, h);
+    addWall(0, 0, 10, 400, world);
+    addWall(490, 0, 10, 400, world);
+    addWall(0, 390, 500, 10, world);
+
+
+    for(var i=0; i < 10; i++){
+        var circBody = addCircle(world);
+        var skin = addSphere();
+        circBody.SetUserData({"skin":skin});
+        var actor = new actorObject(circBody, skin);
+    };
+
+    //  useDebugDraw("canvas1", world);
+
+    // ------------------------------------update
+    function update() {
+        world.Step(
+            1/60   //frame-rate
+            ,10       //velocity iterations
+            ,10       //position iterations
+        );
+        world.DrawDebugData();
+        world.ClearForces();
+
+        for (var b = world.GetBodyList(); b; b = b.GetNext()) {
+            if (b.GetUserData() != null) {
+                // keep moving circles at a constant speed
+                var velocity = b.GetLinearVelocity();
+                var speed = velocity.Length();
+                var ratio = PARTICLE_SPEED/speed;
+                velocity.Multiply(ratio);
+                b.SetLinearVelocity(velocity);
+            };
+        };
+
+        for(var i=0; i < actors.length; i++) {
+            actors[i].update();
+        };
+        requestAnimFrame(update);
+        stage.update();
+    };
+
+    requestAnimFrame(update);
+    stage.update();
+}
+
+
+
+
+// ------------------------------------------------------------------------------------ addWall
+function addWall(pX, pY, w, h, world) {
+
+    var bodyDef = new b2BodyDef();
+    bodyDef.position.Set((pX + (w/2))/SCALE, (pY + (h/2))/SCALE);
+    bodyDef.type = b2Body.b2_staticBody; // static
+
+    var polygonShape = new b2PolygonShape();
+    polygonShape.SetAsBox((w/2)/SCALE, (h/2)/SCALE);
+
+    var fixtureDef = new b2FixtureDef();
+    fixtureDef.shape = polygonShape;
+    fixtureDef.density = 1;
+    fixtureDef.restitution = 1;
+    fixtureDef.friction = 0;
+
+    var body = world.CreateBody(bodyDef);
+    body.CreateFixture(fixtureDef);
+    
+    return body;
+}
+
+
+// ------------------------------------------------------------------------------------ addCircle
+function addCircle(world) {
+    
+    var randX = (Math.floor(Math.random() * 490) + 10)/SCALE; //500 x 400 canvas, 10px walls
+    var randY = (Math.floor(Math.random() * 390) + 10)/SCALE;
+    var randomAngle = Math.random() * 2 * Math.PI;
+
+    var bodyDef =  new b2BodyDef();
+    bodyDef.type = b2Body.b2_dynamicBody; // dynamic
+    bodyDef.position.Set(randX, randY);
+    bodyDef.userData = {name:"particle"};
+
+    var circleShape = new b2CircleShape((PARTICLE_SIZE/2)/SCALE);
+
+    var fixtureDef = new b2FixtureDef();
+    fixtureDef.density = 1;
+    fixtureDef.friction = 0;
+    fixtureDef.restitution = 1;
+    fixtureDef.shape = circleShape;
+
+    var body = world.CreateBody(bodyDef);
+    body.CreateFixture(fixtureDef);
+
+    // set the random direction
+    body.SetLinearVelocity(new b2Vec2(PARTICLE_SPEED * Math.cos(randomAngle), PARTICLE_SPEED * Math.sin(randomAngle)));
+
+    return body;
+}
+
+
+// ------------------------------------------------------------------------------------ useDebugDraw
+function useDebugDraw(canvasID, world) {
+
+    //setup debug draw
+    var debugDraw = new b2DebugDraw();
+    debugDraw.SetSprite(document.getElementById(canvasID).getContext("2d"));
+    debugDraw.SetDrawScale(SCALE);
+    debugDraw.SetFillAlpha(0.3);
+    debugDraw.SetLineThickness(1.0);
+    debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+
+    world.SetDebugDraw(debugDraw); 
+}
+
+
+/* 
+*/
+
+// ------------------------------------------------------------------------------------ initEasel
+function initEasel(canvas) {
+
+    var canvas = $('#canvas1');
+    window.stage = new Stage(canvas.get(0));
+}
+
+// ------------------------------------------------------------------------------------ addSphere
+function addSphere() {
+
+    var sphereBMP = new Bitmap("sphere.png");
+    sphereBMP.x = 200;
+    sphereBMP.y = 200;
+    sphereBMP.regX = 23; 
+    sphereBMP.regY = 23;
+    stage.addChild(sphereBMP);
+    
+    return sphereBMP;
+}
+
+window.actors = [];
+// ------------------------------------------------------------------------------------ actorObj
+var actorObject = function(body, skin) {
+    this.body = body;
+    this.skin = skin;
+    this.update = function() { // translate box2d positions to pixels
+	this.skin.rotation = this.body.GetAngle() * (180 / Math.PI);
+	this.skin.x = this.body.GetWorldCenter().x * SCALE;
+	this.skin.y = this.body.GetWorldCenter().y * SCALE;
+    }
+    window.actors.push(this);
+};
+
+
+</script>
+
+
+<style type="text/css">
+    body{padding:50px;}
+    #canvas1 { border:1px solid black; background-image:url('bg.jpg');}
+</style>
+
+</head>
+<body>
+
+
+    <canvas id="canvas1"  width="500", height="400"></canvas>
+
+
+</body>
+</html>

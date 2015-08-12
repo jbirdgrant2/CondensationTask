@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accessbile CBAL Science Task Screen 9</title>
+    <link rel="stylesheet" type="text/css" href="css/cbal.css" />
+    
+	<script src="scripts/jquery.js" type="text/javascript"></script>
+    <script src="scripts/cbal.js" type="text/javascript"></script>
+	
+	
+</head>
+<body class="pageBody">
+
+	<div id="nav" role="navigation">
+        <table class="navmenu" role="presentation">
+            <tbody role="presentation">
+                <tr role="presentation">
+                    <td class="navlogo" role="presentation">
+                        <img id="ets_logo" aria-hidden="true" src="images/cbalLogoWhite.png" height="30" width="142" alt="" onclick="showATMode()" />
+                        <input type="checkbox" onclick="setATUser(this)" id="chk_atmode" class="none" value="atmode" /><label id="atmode_lbl" class="none" for="chk_atmode">AT Mode</label>
+                    </td>
+                    <td class="navactivity" role="presentation">
+                        <div class="purplebox_2" aria-live="assertive" aria-relevant="text" aria-atomic="false">ENGAGE</div>
+                    </td>
+                    <td class="navbuttons" role="presentation">
+                        <ul class="buttonarea_2">
+                            <li class="nolist menuitem navbutton hidden" aria-hidden="true">
+					            <input aria-hidden="true" type="image" src="./images/dataButtonDisabled.jpg" tabindex="-1" id="dataButton" disabled="disabled" alt="show student data" />
+				            </li>
+				            <li class="nolist menuitem navbutton">
+					            <input type="image" src="./images/stopButtonEnabled.jpg" id="stopButton" alt="stop test" />
+				            </li>
+				            <li class="nolist menuitem navbutton">
+					            <input type="image" src="./images/saveButtonDisabled.jpg" id="saveButton" disabled="disabled" alt="save test" />
+				            </li>
+ 				            <li class="nolist menuitem navbutton">
+					            <input type="image" src="./images/backButtonEnabled.jpg" id="backButton" alt="previous question" />
+				            </li>
+				            <li class="nolist menuitem navbutton">
+					            <input type="image" src="./images/nextButtonEnabled.jpg" id="nextButton" alt="next question" />
+				            </li>
+			            </ul>
+                    </td>
+                </tr>
+            </tbody>            
+        </table>
+    </div>
+    
+    <div role="main">    
+	
+        <div id="q9_EXPLORE" class="question">
+            <div class="peribox">
+                <div class="whitebox">
+                    <p>As you observed, there are always water molecules in the air, although they cannot be seen with the naked eye.</p>
+                    <p>After 5 minutes, Mike made his second observation and saw that many water droplets had formed outside of the bottle.</p>
+                    <p aria-hidden="true" id="q9_lbl">Please explain how the water molecules move when they form water droplets.</p>
+                    <textarea  id="q9_ta" aria-labelledby="q9_lbl" aria-required="true" required="required"></textarea>
+                    <p class="alertbox_ta"></p>
+                </div>
+            </div>
+        </div>
+		
+    </div>
+</body>
+</html>

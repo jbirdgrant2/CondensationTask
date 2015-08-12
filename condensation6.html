@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accessbile CBAL Science Task Screen 6</title>
+    <link rel="stylesheet" type="text/css" href="css/cbal.css" />
+    
+	<script src="scripts/jquery.js" type="text/javascript"></script>
+    <script src="scripts/cbal.js" type="text/javascript"></script>
+	
+	
+</head>
+<body class="pageBody">
+
+	<div id="nav" role="navigation">
+        <table class="navmenu" role="presentation">
+            <tbody role="presentation">
+                <tr role="presentation">
+                    <td class="navlogo" role="presentation">
+                        <img id="ets_logo" aria-hidden="true" src="images/cbalLogoWhite.png" height="30" width="142" alt="" onclick="showATMode()" />
+                        <input type="checkbox" onclick="setATUser(this)" id="chk_atmode" class="none" value="atmode" /><label id="atmode_lbl" class="none" for="chk_atmode">AT Mode</label>
+                    </td>
+                    <td class="navactivity" role="presentation">
+                        <div class="purplebox_2" aria-live="assertive" aria-relevant="text" aria-atomic="false">ENGAGE</div>
+                    </td>
+                    <td class="navbuttons" role="presentation">
+                        <ul class="buttonarea_2">
+                            <li class="nolist menuitem navbutton hidden" aria-hidden="true">
+					            <input aria-hidden="true" type="image" src="./images/dataButtonDisabled.jpg" tabindex="-1" id="dataButton" disabled="disabled" alt="show student data" />
+				            </li>
+				            <li class="nolist menuitem navbutton">
+					            <input type="image" src="./images/stopButtonEnabled.jpg" id="stopButton" alt="stop test" />
+				            </li>
+				            <li class="nolist menuitem navbutton">
+					            <input type="image" src="./images/saveButtonDisabled.jpg" id="saveButton" disabled="disabled" alt="save test" />
+				            </li>
+ 				            <li class="nolist menuitem navbutton">
+					            <input type="image" src="./images/backButtonEnabled.jpg" id="backButton" alt="previous question" />
+				            </li>
+				            <li class="nolist menuitem navbutton">
+					            <input type="image" src="./images/nextButtonEnabled.jpg" id="nextButton" alt="next question" />
+				            </li>
+			            </ul>
+                    </td>
+                </tr>
+            </tbody>            
+        </table>
+    </div>
+    
+    <div role="main">    
+
+      
+        <div id="q6_EXPLORE" class="question">
+            <div class="peribox">
+                <div class="whitebox">
+					<table id="q6_tbl" role="presentation">
+						<tbody role="presentation">
+							<tr role="presentation">
+								<td id="q6_tbl_left" role="presentation">
+									<p>Now, let's explore how the model of molecule movement at the microscopic scale can be used to explain observations at the macroscopic scale.</p>
+									<p>Macroscopic Scale Observation:<br />
+									Mike will make two observations of the water bottle at different points in time. He will make his first observation when the bottle is put on the table. He will make an additional observation after 5 minutes.</p>
+									<p>Microscopic Model:<br />
+									We will zoom in to explore how the water molecules move. In particular, we will focus our exploration on a tiny area near the bottle. An animation will be used to represent the model developed by scientists to describe how water molecules move at the microscopic scale.</p>
+								</td>
+								<td id="q6_tbl_right" role="presentation">
+									<img id="img_q6" src="images/wall.jpg" alt="The image shows the wall of the plastic bottle partly zoomed in. An upright rectangle is shaded blue, and the left side of the rectangle is labeled, The Wall of the Bottle. The area to the left of the rectangle is labeled, Outside the Bottle. An arrow facing to the right points to a red dot that is touching the outer wall of the bottle." height="611" width="388" />
+								</td>
+							</tr>
+						</tbody>
+					</table>
+                </div>
+            </div>
+        </div>
+
+        
+		
+    </div>
+</body>
+</html>

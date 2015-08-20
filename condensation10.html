@@ -3,186 +3,309 @@
 <head>
     <meta charset="utf-8" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Accessbile CBAL Science Task Screen 10</title>
-    <link rel="stylesheet" type="text/css" href="css/cbal.css" />
-    
-	<script src="scripts/jquery.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/cbal.css" />    
+    <script src="scripts/jquery.js" type="text/javascript"></script>
     <script src="scripts/animation.js" type="text/javascript"></script>
-	<script src="scripts/cbal.js" type="text/javascript"></script>
-   
-	<!-- web component stuff here -->
+    <script src="scripts/cbal.js" type="text/javascript"></script>   
+    <!-- web component stuff here -->
     <script src="poly1.0/components/bower_components/webcomponentsjs/webcomponents.min.js"></script>
-	<link rel="import" href="poly1.0/components/bower_components/polymer/polymer.html">
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // Add handling for animation buttons.
-            $('button[class="sr_btn"]').each(function (index) {
-                var srbutton = new srb($(this).attr('id'));
-            });
-        });
-
-        // constructor for animation buttons
-        function srb(buttonid) {
-            this.$id = $('#' + buttonid);
-            this.keys = new keyCodes();
-            this.bindHandlers();
-        }
-
-        // bind handlers
-        srb.prototype.bindHandlers = function () {
-            var thisObj = this;
-            this.$id.click(function (e) {
-                return thisObj.handleClick(e);
-            });
-            this.$id.keydown(function (e) {
-                return thisObj.handleKeyDown(e);
-            });
-            this.$id.keypress(function (e) {
-                return thisObj.handleKeyPress(e);
-            });
-        }
-
-        // handle click
-        srb.prototype.handleClick = function (e) {
-            switch (this.$id.attr('id')) {
-                case 'long2': {
-                    toggleLongdesc();
-                    break;
-                }
-                case 'short2': {
-                    toggleShortdesc();
-                    break;
-                }
-                case 'tactile2': {
-                    toggleTactiledesc();
-                    break;
-                }
-            }
-            return true;
-        }
-
-        // handle key down
-        srb.prototype.handleKeyDown = function (e) {
-            switch (e.keyCode) {
-                case this.keys.enter:
-                case this.keys.space: {
-                    switch (this.$id.attr('id')) {
-                        case 'long2': {
-                            toggleLongdesc();
-                            break;
-                        }
-                        case 'short2': {
-                            toggleShortdesc();
-                            break;
-                        }
-                        case 'tactile2': {
-                            toggleTactiledesc();
-                            break;
-                        }
-                    }
-                    e.stopPropagation();
-                    return false;
-                    break;
-                }
-            }
-            return true;
-        }
-
-        // Consume keypress events. This function is necessary to prevent some browsers (such as Opera) from performing window manipulation 
-        // on keypress events. Returns true if propagating; false if not. 
-        srb.prototype.handleKeyPress = function (e) {
-
-            if (e.altKey || e.ctrlKey || e.shiftKey) {
-                // do nothing 
-                return true;
-            }
-
-            switch (e.keyCode) {
-                case this.keys.esc:
-                case this.keys.enter:
-                case this.keys.left:
-                case this.keys.up:
-                case this.keys.right:
-                case this.keys.down: {
-                    e.stopPropagation();
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        function toggleShortdesc() {
-            $('dg-longdesc').attr('style', 'display: none;');
-            $('dg-tactiledesc').attr('style', 'display: none;');
-            var el = $('dg-shortdesc');
-            if (el.attr('style') == undefined) {
-                el.attr('style', 'display: none;');
-            }
-            else {
-                el.removeAttr('style');
-                $('#short_desc').focus();
-            }
-        }
-
-        function toggleLongdesc() {
-            $('dg-shortdesc').attr('style', 'display: none;');
-            $('dg-tactiledesc').attr('style', 'display: none;');
-            var el = $('dg-longdesc');
-            if (el.attr('style') == undefined) {
-                el.attr('style', 'display: none;');
-            }
-            else {
-                el.removeAttr('style');
-                $('#long_desc').focus();
-            }
-        }
-
-        function toggleTactiledesc() {
-            $('dg-shortdesc').attr('style', 'display: none;');
-            $('dg-longdesc').attr('style', 'display: none;');
-            var el = $('dg-tactiledesc');
-            if (el.attr('style') == undefined) {
-                el.attr('style', 'display: none;');
-            }
-            else {
-                el.removeAttr('style');
-                $('#tactile_desc').focus();
-            }
-        }
-
-    </script>
-		
-	
+    <link rel="import" href="poly1.0/components/bower_components/polymer/polymer.html">
 </head>
 <body class="pageBody">
-
-<dom-module id="dg-longdesc">
+<dom-module id="ets-btn-longdesc">
   <style>
-	:host {
-      display: block;
-	  background-color: #ffffff;
-	  color: #007ba8;
-	  width: 99%;
-	  padding: 8px;
-	  margin-left: auto;
-	  margin-right: auto;
-	  border: 1px solid #007ba8;
-	  margin-top: 1em;	  
-	  font-style: normal;	
-	  font-size: 14px;
-    }	
+    :host {
+      display: inline;
+      margin-bottom: 1em;
+      margin-right: 0.5em;
+      font-size: 14px;
+      font-weight: normal;
+      text-decoration:none;
+      cursor:pointer;
+      text-align: center;
+      color: buttontext;
+      padding: 0.2em;
+      border: 2px outset buttonface;
+      border-image-source: initial;
+      border-image-slice: initial;
+      border-image-width: initial;
+      border-image-outset: initial;
+      border-image-repeat: initial;
+      background-color: buttonface;
+      -moz-border-radius:3px;
+      -webkit-border-radius:3px;
+      border-radius:3px;
+    }    
   </style>  
   <template>
-	<div tabindex="0" id="long_desc">
-		<content></content>
+    <content></content>
+  </template>
+  <script>
+    Polymer({
+        is: "ets-btn-longdesc",
+        hostAttributes: {
+          tabindex: 0,
+          role: "button"
+        },
+        listeners: {
+          "click": "handleClick",
+          "keydown" : "handleKeyDown",
+          "keypress" : "handleKeyPress"
+        },
+        toggleLongDesc: function(e) {
+          $('ets-shortdesc').attr('style', 'display: none;');
+          $('ets-tactiledesc').attr('style', 'display: none;');
+          var el = $('ets-longdesc');
+          if (el.attr('style') == undefined) {
+            el.attr('style', 'display: none;');
+          }
+          else {
+            el.removeAttr('style');
+            $('#long_desc').focus();
+          }
+        },
+        handleKeyPress: function(e) {
+          if (e.altKey || e.ctrlKey || e.shiftKey) {
+            return true;
+          }
+          switch (e.keyCode) {
+            case 27:
+            case 13:
+            case 37:
+            case 38:
+            case 39:
+            case 40: {
+              e.stopPropagation();
+              return false;
+            }
+          }
+          return true;
+        },
+        handleKeyDown: function(e) {
+            switch (e.keyCode) {
+                case 13:
+                case 32: {
+                  this.toggleLongDesc();
+                  e.stopPropagation();
+                  return false;
+                  break;
+                }
+            }
+            return true;
+        },
+        handleClick: function(e) {
+            this.toggleLongDesc();
+            e.stopPropagation();
+            return false;
+        }
+    });
+  </script>
+</dom-module>
+<dom-module id="ets-btn-shortdesc">
+  <style>
+    :host {
+      display: inline;
+      margin-bottom: 1em;
+      margin-right: 0.5em;
+      font-size: 14px;
+      font-weight: normal;
+      text-decoration:none;
+      cursor:pointer;
+      text-align: center;
+      color: buttontext;
+      padding: 0.2em;
+      border: 2px outset buttonface;
+      border-image-source: initial;
+      border-image-slice: initial;
+      border-image-width: initial;
+      border-image-outset: initial;
+      border-image-repeat: initial;
+      background-color: buttonface;
+      -moz-border-radius:3px;
+      -webkit-border-radius:3px;
+      border-radius:3px;
+    }    
+  </style>  
+  <template>
+    <content></content>
+  </template>
+  <script>
+    Polymer({
+        is: "ets-btn-shortdesc",
+        hostAttributes: {
+          tabindex: 0,
+          role: "button"
+        },
+        listeners: {
+          "click": "handleClick",
+          "keydown" : "handleKeyDown",
+          "keypress" : "handleKeyPress"
+        },
+        toggleShortDesc: function(e) {
+          $('ets-longdesc').attr('style', 'display: none;');
+          $('ets-tactiledesc').attr('style', 'display: none;');
+          var el = $('ets-shortdesc');
+          if (el.attr('style') == undefined) {
+            el.attr('style', 'display: none;');
+          }
+          else {
+            el.removeAttr('style');
+            $('#short_desc').focus();
+          }
+        },
+        handleKeyPress: function(e) {
+          if (e.altKey || e.ctrlKey || e.shiftKey) {
+            return true;
+          }
+          switch (e.keyCode) {
+            case 27:
+            case 13:
+            case 37:
+            case 38:
+            case 39:
+            case 40: {
+              e.stopPropagation();
+              return false;
+            }
+          }
+          return true;
+        },
+        handleKeyDown: function(e) {
+            switch (e.keyCode) {
+                case 13:
+                case 32: {
+                  this.toggleShortDesc();
+                  e.stopPropagation();
+                  return false;
+                  break;
+                }
+            }
+            return true;
+        },
+        handleClick: function(e) {
+            this.toggleShortDesc();
+            e.stopPropagation();
+            return false;
+        }
+    });
+  </script>
+</dom-module>
+<dom-module id="ets-btn-tactiledesc">
+  <style>
+    :host {
+      display: inline;
+      margin-bottom: 1em;
+      margin-right: 0.5em;
+      font-size: 14px;
+      font-weight: normal;
+      text-decoration:none;
+      cursor:pointer;
+      text-align: center;
+      color: buttontext;
+      padding: 0.2em;
+      border: 2px outset buttonface;
+      border-image-source: initial;
+      border-image-slice: initial;
+      border-image-width: initial;
+      border-image-outset: initial;
+      border-image-repeat: initial;
+      background-color: buttonface;
+      -moz-border-radius:3px;
+      -webkit-border-radius:3px;
+      border-radius:3px;
+    }    
+  </style>  
+  <template>
+    <content></content>
+  </template>
+  <script>
+    Polymer({
+        is: "ets-btn-tactiledesc",
+        hostAttributes: {
+          tabindex: 0,
+          role: "button"
+        },
+        listeners: {
+          "click": "handleClick",
+          "keydown" : "handleKeyDown",
+          "keypress" : "handleKeyPress"
+        },
+        toggleTactileDesc: function(e) {
+          $('ets-shortdesc').attr('style', 'display: none;');
+          $('ets-longdesc').attr('style', 'display: none;');
+          var el = $('ets-tactiledesc');
+          if (el.attr('style') == undefined) {
+            el.attr('style', 'display: none;');
+          }
+          else {
+            el.removeAttr('style');
+            $('#tactile_desc').focus();
+          }
+        },
+        handleKeyPress: function(e) {
+          if (e.altKey || e.ctrlKey || e.shiftKey) {
+            return true;
+          }
+          switch (e.keyCode) {
+            case 27:
+            case 13:
+            case 37:
+            case 38:
+            case 39:
+            case 40: {
+              e.stopPropagation();
+              return false;
+            }
+          }
+          return true;
+        },
+        handleKeyDown: function(e) {
+            switch (e.keyCode) {
+                case 13:
+                case 32: {
+                  this.toggleTactileDesc();
+                  e.stopPropagation();
+                  return false;
+                  break;
+                }
+            }
+            return true;
+        },
+        handleClick: function(e) {
+            this.toggleTactileDesc();
+            e.stopPropagation();
+            return false;
+        }
+    });
+  </script>
+</dom-module>
+<dom-module id="ets-longdesc">
+  <style>
+    :host {
+      display: block;
+      background-color: #ffffff;
+      color: #007ba8;
+      width: 99%;
+      padding: 8px;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid #007ba8;
+      margin-top: 1em;      
+      font-style: normal;    
+      font-size: 14px;
+    }    
+  </style>  
+  <template>
+    <div tabindex="0" id="long_desc">
+        <content></content>
     </div>
   </template>
   <script>
       Polymer({
-          is: "dg-longdesc",
+          is: "ets-longdesc",
           hostAttributes: {
               style: 'display: none;'
           }
@@ -190,72 +313,69 @@
 
   </script>
 </dom-module>
-
-<dom-module id="dg-shortdesc">
+<dom-module id="ets-shortdesc">
   <style is="custom-style">
-	:host {
+    :host {
       display: block;
-	  background-color: #ffffff;
-	  color: #007ba8;
-	  width: 99%;
-	  padding: 8px;
-	  margin-left: auto;
-	  margin-right: auto;
-	  border: 1px solid #007ba8;
-	  margin-top: 1em;	  
-	  font-style: normal;	
-	  font-size: 14px;
+      background-color: #ffffff;
+      color: #007ba8;
+      width: 99%;
+      padding: 8px;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid #007ba8;
+      margin-top: 1em;      
+      font-style: normal;    
+      font-size: 14px;
     }
   </style>  
   <template>
-	<div tabindex="0" id="short_desc">
-		<content></content>
+    <div tabindex="0" id="short_desc">
+        <content></content>
     </div>
   </template>
   <script>
       Polymer({
-          is: "dg-shortdesc",
+          is: "ets-shortdesc",
           hostAttributes: {
               style: 'display: none;'
           }
       });
   </script>
 </dom-module>
-
-<dom-module id="dg-tactiledesc">
+<dom-module id="ets-tactiledesc">
   <style is="custom-style">
-	:host {
+    :host {
       display: block;
-	  background-color: #ffffff;
-	  color: #007ba8;
-	  width: 99%;
-	  padding: 8px;
-	  margin-left: auto;
-	  margin-right: auto;
-	  border: 1px solid #007ba8;
-	  margin-top: 1em;	  
-	  font-style: normal;	
-	  font-size: 14px;
+      background-color: #ffffff;
+      color: #007ba8;
+      width: 99%;
+      padding: 8px;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid #007ba8;
+      margin-top: 1em;      
+      font-style: normal;    
+      font-size: 14px;
     }
   </style>  
   <template>
     <div id="tactile_desc" tabindex="0">
-		<content></content>
+        <content></content>
     </div>
   </template>
   <script>
       Polymer({
-          is: "dg-tactiledesc",
+          is: "ets-tactiledesc",
           hostAttributes: {
               style: 'display: none;'
           }
       });
   </script>
 </dom-module>
-
-<dom-module id="dg-tour">
+<dom-module id="ets-tour">
   <template>
-	<div>
+    <div>
         <p><strong>Tour:</strong></p>
         <p>
             <content></content>
@@ -264,99 +384,94 @@
   </template>
   <script>
       Polymer({
-          is: "dg-tour",
+          is: "ets-tour",
           properties: {
               source: String
           }
       });
   </script>
 </dom-module>
-
-	<div id="nav" role="navigation">
-        <table class="navmenu" role="presentation">
-            <tbody role="presentation">
-                <tr role="presentation">
-                    <td class="navlogo" role="presentation">
-                        <img id="ets_logo" aria-hidden="true" src="images/cbalLogoWhite.png" height="30" width="142" alt="" onclick="showATMode()" />
-                        <input type="checkbox" onclick="setATUser(this)" id="chk_atmode" class="none" value="atmode" /><label id="atmode_lbl" class="none" for="chk_atmode">AT Mode</label>
-                    </td>
-                    <td class="navactivity" role="presentation">
-                        <div class="purplebox_2" aria-live="assertive" aria-relevant="text" aria-atomic="false">ENGAGE</div>
-                    </td>
-                    <td class="navbuttons" role="presentation">
-                        <ul class="buttonarea_2">
-                            <li class="nolist menuitem navbutton hidden" aria-hidden="true">
-					            <input aria-hidden="true" type="image" src="./images/dataButtonDisabled.jpg" tabindex="-1" id="dataButton" disabled="disabled" alt="show student data" />
-				            </li>
-				            <li class="nolist menuitem navbutton">
-					            <input type="image" src="./images/stopButtonEnabled.jpg" id="stopButton" alt="stop test" />
-				            </li>
-				            <li class="nolist menuitem navbutton">
-					            <input type="image" src="./images/saveButtonDisabled.jpg" id="saveButton" disabled="disabled" alt="save test" />
-				            </li>
- 				            <li class="nolist menuitem navbutton">
-					            <input type="image" src="./images/backButtonEnabled.jpg" id="backButton" alt="previous question" />
-				            </li>
-				            <li class="nolist menuitem navbutton">
-					            <input type="image" src="./images/nextButtonEnabled.jpg" id="nextButton" alt="next question" />
-				            </li>
-			            </ul>
-                    </td>
-                </tr>
-            </tbody>            
-        </table>
+  <div id="nav" role="navigation">
+    <table class="navmenu" role="presentation">
+      <tbody role="presentation">
+        <tr role="presentation">
+          <td class="navlogo" role="presentation">
+            <img id="ets_logo" aria-hidden="true" src="images/cbalLogoWhite.png" height="30" width="142" alt="" onclick="showATMode()" />
+              <input type="checkbox" onclick="setATUser(this)" id="chk_atmode" class="none" value="atmode" /><label id="atmode_lbl" class="none" for="chk_atmode">AT Mode</label>
+          </td>
+          <td class="navactivity" role="presentation">
+            <div class="purplebox_2" aria-live="assertive" aria-relevant="text" aria-atomic="false">ENGAGE</div>
+          </td>
+          <td class="navbuttons" role="presentation">
+            <ul class="buttonarea_2">
+              <li class="nolist menuitem navbutton hidden" aria-hidden="true">
+                <input aria-hidden="true" type="image" src="./images/dataButtonDisabled.jpg" tabindex="-1" id="dataButton" disabled="disabled" alt="show student data" />
+              </li>
+              <li class="nolist menuitem navbutton">
+                <input type="image" src="./images/stopButtonEnabled.jpg" id="stopButton" alt="stop test" />
+              </li>
+              <li class="nolist menuitem navbutton">
+                <input type="image" src="./images/saveButtonDisabled.jpg" id="saveButton" disabled="disabled" alt="save test" />
+              </li>
+              <li class="nolist menuitem navbutton">
+                <input type="image" src="./images/backButtonEnabled.jpg" id="backButton" alt="previous question" />
+              </li>
+              <li class="nolist menuitem navbutton">
+                <input type="image" src="./images/nextButtonEnabled.jpg" id="nextButton" alt="next question" />
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>            
+    </table>
+  </div>
+  <div role="main">    
+    <div id="q10_EXPLORE" class="question">
+      <table class="split" role="presentation">
+        <tbody role="presentation">
+          <tr role="presentation">
+            <td class="leftside" role="presentation">
+              <p>So, let's find out if your answer is correct. Please use the animation to explore the scientific model about water molecule movement.</p>                    
+              <button id="playButton2" aria-hidden="true" class="enabled" type="button">Play The Animation</button>
+              <div class="alternates">
+                <ets-btn-longdesc>Show/Hide Long Description</ets-btn-longdesc>
+                <ets-btn-shortdesc>Show/Hide Short Description</ets-btn-shortdesc>
+                <ets-btn-tactiledesc>Show/Hide Tour of Tactile Description</ets-btn-tactiledesc>
+                <ets-longdesc>
+                  The animation shows a model of water molecule movement at the microscopic scale. An upright rectangle is shaded blue and the left side of the rectangle is 
+                  labeled, Plastic Wall of Bottle. The area to the left of the rectangle is labeled, Outside the Bottle. A large number of water molecules, represented as small 
+                  blue dots, are shown in motion outside of the bottle. There is a cluster of water molecules very close to the outer wall of the bottle. These water molecules are 
+                  moving much slower and staying close together compared to the water molecules further away from the wall of the bottle. The water molecules further away from the 
+                  wall of the bottle are moving quickly in random directions, with plenty of space between each water molecule.  The motion of these molecues is linear and the 
+                  molecules sometimes collide with each other.  The quick moving water molecules further away from the wall of the bottle occasionally join and add to the size of 
+                  the cluster of water molecules very close to the outer wall of the bottle.
+                </ets-longdesc>
+                <ets-shortdesc>
+                  The animation shows a model of water molecule movement at the microscopic scale. There is a cluster of slow moving water molecules very close to the 
+                  outer wall of a plastic water bottle, and a large number of water molecules moving quickly and in random directions further away from the outer wall of 
+                  the water bottle. The quick moving water molecules occasionally join the cluster of water molecules close to the outer wall of the water bottle.
+                </ets-shortdesc>
+                <ets-tactiledesc>                                    
+                  There are two tactile illustration for this animation.  Here are their tours.
+                  <ets-tour source="images/condense-3.png">
+                    2A: In the tactile illustration, moving from left to right, there are several free floating particles with some condensation along the bottle wall.
+                  </ets-tour>
+                  <ets-tour source="images/condense-4.png">
+                    2B: In the tactile illustration, moving from left to right, there are several free floating particles with significant condensation along the bottle wall.
+                  </ets-tour>                                    
+                </ets-tactiledesc>
+              </div>
+              <p>Here is the scientific answer. When temperature drops, water molecules move slower; they also move closer to each other. By the time Mike made his observation at the 5-minute mark, a lot of water molecules near the bottle had moved closer to each other to bond together. As a result, a lot of water droplets formed outside of the water bottle.</p>
+            </td>
+            <td class="rightside" role="presentation">                            
+              <div class="whitegreenbox_2">
+                <iframe id="frmAnimation2" aria-hidden="true" src="animation_2.html" height="655px" width="575px"></iframe>
+              </div>                                
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    
-    <div role="main">    
-
-        <div id="q10_EXPLORE" class="question">
-			<table class="split" role="presentation">
-				<tbody role="presentation">
-					<tr role="presentation">
-						<td class="leftside" role="presentation">
-							<p>So, let's find out if your answer is correct. Please use the animation to explore the scientific model about water molecule movement.</p>                    
-							<button id="playButton2" aria-hidden="true" class="enabled" type="button">Play The Animation</button>
-                            <div class="alternates">
-                                <button id="long2" class="sr_btn">Show/Hide Long Description</button>
-								<button id="short2" class="sr_btn">Show/Hide Short Description</button>
-								<button id="tactile2" class="sr_btn">Show/Hide Tour of Tactile Graphic</button>
-                                <dg-longdesc>
-                                    The animation shows a model of water molecule movement at the microscopic scale. An upright rectangle is shaded blue and the left side of the rectangle is 
-                                    labeled, Plastic Wall of Bottle. The area to the left of the rectangle is labeled, Outside the Bottle. A large number of water molecules, represented as small 
-                                    blue dots, are shown in motion outside of the bottle. There is a cluster of water molecules very close to the outer wall of the bottle. These water molecules are 
-                                    moving much slower and staying close together compared to the water molecules further away from the wall of the bottle. The water molecules further away from the 
-                                    wall of the bottle are moving quickly in random directions, with plenty of space between each water molecule.  The motion of these molecues is linear and the 
-                                    molecules sometimes collide with each other.  The quick moving water molecules further away from the wall of the bottle occasionally join and add to the size of 
-                                    the cluster of water molecules very close to the outer wall of the bottle.
-								</dg-longdesc>
-								<dg-shortdesc>
-                                    The animation shows a model of water molecule movement at the microscopic scale. There is a cluster of slow moving water molecules very close to the 
-                                    outer wall of a plastic water bottle, and a large number of water molecules moving quickly and in random directions further away from the outer wall of 
-                                    the water bottle. The quick moving water molecules occasionally join the cluster of water molecules close to the outer wall of the water bottle.
-								</dg-shortdesc>
-								<dg-tactiledesc>                                    
-									There are two tactile illustration for this animation.  Here are their tours.
-                                    <dg-tour source="images/condense-3.png">
-                                        2A: In the tactile illustration, moving from left to right, there are several free floating particles with some condensation along the bottle wall.
-                                    </dg-tour>
-                                    <dg-tour source="images/condense-4.png">
-                                        2B: In the tactile illustration, moving from left to right, there are several free floating particles with significant condensation along the bottle wall.
-                                    </dg-tour>									
-								</dg-tactiledesc>
-                            </div>
-							<p>Here is the scientific answer. When temperature drops, water molecules move slower; they also move closer to each other. By the time Mike made his observation at the 5-minute mark, a lot of water molecules near the bottle had moved closer to each other to bond together. As a result, a lot of water droplets formed outside of the water bottle.</p>
-						</td>
-                        <td class="rightside" role="presentation">							
-							<div class="whitegreenbox_2">
-								<iframe id="frmAnimation2" aria-hidden="true" src="animation_2.html" height="655px" width="575px"></iframe>
-							</div>                        		
-						</td>
-
-					</tr>
-				</tbody>
-			</table>
-        </div>
-		
-    </div>
+  </div>
 </body>
 </html>
